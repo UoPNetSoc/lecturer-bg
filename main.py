@@ -27,9 +27,6 @@ if config.missingWallpaper == None:
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 tempFolder = "tmp/"
 
-ttUpdate = 60 * 60 # 1 hour, in seconds
-bgUpdate = 60 * 1 # 1 minute, in seconds
-
 # checks whether there is a current event
 # if there is, the wallpaper is updated accordingly
 def updateBackground():
@@ -241,3 +238,4 @@ if firstArg == "set":
 
 # unrecongised argument
 print(f"Unrecognised argument '{firstArg}', please see the README for help on how to run.")
+sys.exit()
