@@ -3,6 +3,8 @@ Set your computer wallpaper to your current lecturer, according to your timetabl
 
 Sorry about the code quality. This was written in the space of a few hours, written between lectures (definitely not during...).
 
+Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer.
+
 ## Requirements
 ```
 pip install -r requirements.txt
@@ -35,6 +37,8 @@ To run the script, it is recommended to add tasks to the Windows Task Scheduler.
 One that calls the script with the argument of `update` (`python main.py update`), which will update the timetable and staff list - this should be run - this shouldn't need to be run very often.
 
 The other should call the script with the argument of `set` (`python main.py set`), which will set to the current lecturer, or the default if there is no lecturer - this should be run every few minutes (or as frequently as you like) to keep the wallpaper up to date.
+
+[schedule.bat](schedule.bat) will add the two tasks as described above.
 
 # ToDo:
 See GitHub Issues for list of things to do.
