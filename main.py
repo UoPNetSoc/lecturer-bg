@@ -101,10 +101,10 @@ def updateBackground():
 					break
 			
 			if lecturer == None:
-				print("Couldn't find lecturer in notes")
+				print("Couldn't find lecturer in notes :(")
 				setMissingWallpaper()
 				return
-			
+
 			firstName = lecturer.split(", ")[1]
 			lastName = lecturer.split(", ")[0]
 
@@ -112,7 +112,7 @@ def updateBackground():
 			image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
 
 			if image == None:
-				print("Couldn't find staff member in staff list")
+				print("Couldn't find staff member in staff list :(")
 				setMissingWallpaper()
 				return
 			# else:
@@ -120,7 +120,7 @@ def updateBackground():
 			# check if the image is already downloaded
 			# if it is, then we don't need to download it again
 			if os.path.isfile(f"{tempFolder}images/{image}.avif"):
-				print("Image already downloaded")
+				print(f"Image {image} already downloaded")
 			else:
 				# download the image
 				print("Downloading image")
@@ -131,9 +131,9 @@ def updateBackground():
 		
 			# set the wallpaper
 			# full path of the image is needed
-			print("Setting wallpaper")
 			fullPath = os.path.abspath(f"{tempFolder}images/{image}.avif")
 
+			# "fix" is a bit of a stretch
 			fixedImagePath = fixImageAndGetPath(fullPath)
 
 			setWallpaper(fixedImagePath, True)
@@ -193,22 +193,18 @@ def findStaffMemberImageURL(name):
 		staffJson = json.loads(f.read())
 		f.close()
 
-	name = name.lower().replace("dr ", "").replace("prof ", "")
+	name = name.lower().replace("dr ", "")
 
 	# find the staff member in the list
 	for s in staffJson:
-		sName = s.get("name").lower().replace("dr ", "").replace("prof ", "")
+		sName = s.get("name").lower().replace("dr ", "")
 		
-		print(f"Checking '{sName}' against '{name}'")
-
 		if(sName == name):
 			# we have found our staff member, get their images
 			images = s.get("images")
 			
 			if images == None:
-				print("No images found for this staff member, setting missing wallpaper")
-				setMissingWallpaper()
-				return # we don't need to do anything else
+				return None
 			
 			# get the first image
 			image = images[0] # is just the staff member's name
