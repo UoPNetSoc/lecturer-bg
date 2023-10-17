@@ -1,10 +1,12 @@
 # Lecturer Background
 Set your computer wallpaper to your current lecturer, according to your timetable (for the UoP School of Computing) 
 
+Sorry about the code quality. This was written in the space of a few hours, written between lectures (definitely not during...).
+
 ## Requirements
-- `requests`, `time`
-- `py-wallpaper`
-- `icalendar`
+```
+pip install -r requirements.txt
+```
 
 ## Config
 `config.py` should look like the following:
