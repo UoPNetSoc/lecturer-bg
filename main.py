@@ -9,6 +9,7 @@ import icalendar # for parsing the timetable
 import json # for parsing the staff list
 import ctypes # for setting the wallpaper
 import os # for getting the full path of the image
+import sys # for getting the arguments
 
 import config # not a very good way to do it, but it works
 
@@ -209,22 +210,34 @@ def jsonReq(url):
 	# return a json response from a url
 	return json.loads(textReq(url))
 
-def main():
+def tempFolders():
 	# create temp folders
 	if not os.path.exists(tempFolder):
 		os.makedirs(tempFolder)
 	if not os.path.exists(f"{tempFolder}staff"):
 		os.makedirs(f"{tempFolder}staff")
-		
 
-	# TODO: run on a loop and update
-	# every hour or so
+
+# temp folders every time
+tempFolders()
+
+# get arguments
+firstArg = None
+try:
+	firstArg = sys.argv[1]
+except IndexError:
+	print("No arguments! Please see the README for help on how to run.")
+	sys.exit()
+
+# python doesnt have nice switch statements :(
+
+if firstArg == "update":
 	downloadTT()
-	
-	while True:
-		updateBackground()
-		sleep(bgUpdate)
+	sys.exit()
 
-	# setMissingWallpaper()
+if firstArg == "set":
+	updateBackground()
+	sys.exit()
 
-main()
+# unrecongised argument
+print(f"Unrecognised argument '{firstArg}', please see the README for help on how to run.")
