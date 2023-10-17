@@ -64,8 +64,8 @@ def updateBackground():
 		notes = event.get('description')
 
 		# check if the event is happening now
-		# now = datetime.now()
-		now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
+		now = datetime.now()
+		# now = datetime(2023, 10, 17, 12, 0, 0) # fixed time for testing
 
 		# fix now timezone?
 		now = now.astimezone()
