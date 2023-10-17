@@ -4,3 +4,7 @@ config.py
 tmp/
 
 __pycache__/
+
+default.jpg
+
+missing.jpg

@@ -16,6 +16,9 @@ import config # not a very good way to do it, but it works
 if config.ttURL == None:
 	raise Exception("No timetable URL set in config.py (see the README for help!)")
 
+if config.defaultWallpaper == None:
+	raise Exception("No default wallpaper set in config.py (see the README for help!)")
+
 # extra conf stuff but the user won't need to mess with it
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 tempFolder = "tmp/"
@@ -53,8 +56,15 @@ def updateBackground():
 		notes = event.get('description')
 
 		# check if the event is happening now
-		# now = utc.localize(datetime.now())
-		now = utc.localize(datetime(2023, 10, 17, 14, 0, 0)) # fixed time for testing, should be rinat
+		# now = datetime.now()
+
+		now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
+		
+		# make now aware of the timezone
+		now = utc.localize(now)
+		# convert the event times to UTC
+		startTime = startTime.astimezone(utc)
+		endTime = endTime.astimezone(utc)
 
 		if startTime <= now <= endTime:
 			# this event is happening now!
@@ -90,8 +100,9 @@ def updateBackground():
 					images = s.get("images")
 					
 					if images == None:
-						print("No images found for this staff member")
-						return
+						print("No images found for this staff member, setting missing wallpaper")
+						setMissingWallpaper()
+						return # we don't need to do anything else
 					
 					# get the first image
 					image = images[0] # is just the staff member's name
@@ -115,15 +126,18 @@ def updateBackground():
 					# full path of the image is needed
 					print("Setting wallpaper")
 					fullPath = os.path.abspath(f"{tempFolder}staff/{image}.avif")
-					setWallpaper(fullPath)
+					setWallpaper(fullPath, True)
 
-					return
+					return # done
 
 			# for some reason it sometimes gives multiple events at once?
 			# this is a janky fix for that, so it only does the first one
 			return
-
-
+		
+	# if we get here, then there is no current event
+	# so we set the default wallpaper
+	print("No current event, setting default wallpaper")
+	setDefaultWallpaper()
 
 # this updates the local copy of the timetable/staff list
 def downloadTT():
@@ -157,8 +171,25 @@ def downloadTT():
 		f.write(json.dumps(staffList))
 		f.close()
 
-def setWallpaper(filePath):
-	ctypes.windll.user32.SystemParametersInfoW(20, 0, filePath, 0)
+def setWallpaper(filePath, stretch=False):
+	print(f"Setting wallpaper to {filePath}, stretch={stretch}")
+
+	if stretch:
+		# stretch is 1
+		style = 1
+	else:
+		# fill is 10?
+		style = 10
+
+	ctypes.windll.user32.SystemParametersInfoW(20, 0, filePath, style)
+
+def setDefaultWallpaper():
+	fullPath = os.path.abspath(config.defaultWallpaper)
+	setWallpaper(fullPath)
+
+def setMissingWallpaper():
+	fullPath = os.path.abspath(config.missingWallpaper)
+	setWallpaper(fullPath, True)
 
 def main():
 	# create temp folders
@@ -175,5 +206,7 @@ def main():
 	while True:
 		updateBackground()
 		sleep(bgUpdate)
+
+	# setMissingWallpaper()
 
 main()

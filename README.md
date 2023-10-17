@@ -11,6 +11,15 @@ Set your computer wallpaper to your current lecturer, according to your timetabl
 ```python
 # ttURL should be set to the ical url of your timetable
 ttURL = "http://timetable.myport.ac.uk/123456789ABCD.ics"
+
+# This is the wallpaper to show when there is nothing happening
+# Should be placed in the same directory as the script
+defaultWallpaper = "default.jpg"
+
+# This is the wallpaper to show when there is something happening,
+# but we couldn't find an image for the lecturer
+# Should be placed in the same directory as the script
+missingWallpaper = "unknown.jpg"
 ```
 
 ## Finding the iCal Link
