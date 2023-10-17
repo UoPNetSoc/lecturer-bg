@@ -38,7 +38,7 @@ One that calls the script with the argument of `update` (`python main.py update`
 
 The other should call the script with the argument of `set` (`python main.py set`), which will set to the current lecturer, or the default if there is no lecturer - this should be run every few minutes (or as frequently as you like) to keep the wallpaper up to date.
 
-[schedule.bat](schedule.bat) will add the two tasks as described above.
+[schedule.ps1](schedule.ps1) will add the two tasks as described above.
 
 # ToDo:
 See GitHub Issues for list of things to do.
