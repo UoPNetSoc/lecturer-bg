@@ -14,7 +14,7 @@ import os # for getting the full path of the image
 import sys # for getting the arguments
 
 # for funny image manipulation
-from PIL import Image
+from PIL import Image, ImageFilter
 import pillow_avif
 
 import config # not a very good way to do it, but it works
@@ -203,20 +203,28 @@ def setMissingWallpaper():
 # (it stretches the image to the screen resolution, and then saves it as a jpg)
 # returns the path to the new jpg
 def fixImageAndGetPath(imgPath):
+	newPath = imgPath.replace(".avif", ".jpg")
+
+	# if already exists, return it
+	if os.path.isfile(newPath):
+		print(f"Image already fixed up, returning {newPath}")
+		return newPath
+
 	print(f"Fixing up {imgPath} with pillow")
 	
-	# get the screen resolution
-	screenWidth = ctypes.windll.user32.GetSystemMetrics(0)
-	screenHeight = ctypes.windll.user32.GetSystemMetrics(1)
+	# get the screen resolution, and divide by 2
+	screenWidth = ctypes.windll.user32.GetSystemMetrics(0) // 2
+	screenHeight = ctypes.windll.user32.GetSystemMetrics(1) // 2
 	
 	# load the image
 	img = Image.open(imgPath)
-	stretched = img.resize((screenWidth, screenHeight)).convert("RGB")
-	
-	# save as jpg with 10% quality
-	stretched.save(imgPath.replace(".avif", ".jpg"), quality=10)
+	# resize it to the screen resolution, and convert it to RGB
+	img = img.resize((screenWidth, screenHeight)).convert("RGB")
 
-	return imgPath.replace(".avif", ".jpg") 
+	# save as jpg with 10% quality :)
+	img.save(newPath, quality=10)
+
+	return newPath
 
 # these are just wrappers for the requests library
 # they disable SSL verification because that broke on jack's laptop
