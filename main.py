@@ -58,14 +58,10 @@ def updateBackground():
 
 		# check if the event is happening now
 		now = datetime.now()
+		# now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
 
-		# now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
-		
-		# make now aware of the timezone
-		now = utc.localize(now)
-		# convert the event times to UTC
-		startTime = startTime.astimezone(utc)
-		endTime = endTime.astimezone(utc)
+		# fix now timezone?
+		now = now.astimezone()
 
 		if startTime <= now <= endTime:
 			# this event is happening now!
