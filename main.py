@@ -19,6 +19,9 @@ if config.ttURL == None:
 if config.defaultWallpaper == None:
 	raise Exception("No default wallpaper set in config.py (see the README for help!)")
 
+if config.missingWallpaper == None:
+	raise Exception("No missing wallpaper set in config.py (see the README for help!)")
+
 # extra conf stuff but the user won't need to mess with it
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 tempFolder = "tmp/"
@@ -56,9 +59,9 @@ def updateBackground():
 		notes = event.get('description')
 
 		# check if the event is happening now
-		# now = datetime.now()
+		now = datetime.now()
 
-		now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
+		# now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
 		
 		# make now aware of the timezone
 		now = utc.localize(now)
