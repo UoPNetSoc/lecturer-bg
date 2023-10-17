@@ -4,7 +4,9 @@
 1..2 | ForEach-Object {
 	if ($_ -eq 1) {
         $arg = "set"
-		$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval ([TimeSpan]::FromMinutes(5))
+		# we can run this hourly, since lectures can only start and finish on the hour
+		# im not sure how this will work with the repetition interval, and when during the hour it will run
+		$trigger = New-ScheduledTaskTrigger -Once -At "08:00:05" -RepetitionInterval ([TimeSpan]::FromHours(1))
 	}
     elseif ($_ -eq 2) {
 		$arg = "update"
@@ -18,7 +20,7 @@
 	$action = New-ScheduledTaskAction -Execute "$PSScriptRoot\$arg.vbs"
 	
 	$principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive
-	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
+	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -RunOnlyIfNetworkAvailable
 
 	Register-ScheduledTask -force -Action $action -Trigger $trigger -TaskPath "LecturerBG" -TaskName "Lecturer BG $arg" -Principal $principal -Settings $settings
 }
