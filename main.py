@@ -120,7 +120,7 @@ def updateBackground():
 					else:
 						# download the image
 						print("Downloading image")
-						imageResp = requests.get(imageURL)
+						imageResp = contentReq(imageURL)
 						with open(f"{tempFolder}staff/{image}.avif", "wb") as f:
 							f.write(imageResp.content)
 							f.close()
@@ -149,18 +149,19 @@ def downloadTT():
 	# TODO: check if the local copies is different
 	# and dont redownload if it's the same
 	print("Downloading timetable")
-	ttResp = requests.get(config.ttURL)
+	tt = textReq(config.ttURL)
 
 	with open(f"{tempFolder}tt.ics", "w") as f:
 		print("Saving timetable")
-		f.write(ttResp.text)
+		f.write(tt)
 		f.close()
 	
 	print("Downloading staff list")
-	staffResp = json.loads(requests.get(staffJson).text)
+	staffResp = jsonReq(staffJson)
 
 	# there are three sections to the staff json: heads, professors, and staff
 	# we will combine them here
+	print("Parsing staff list")
 	staffList = []
 	for s in staffResp["heads"]:
 		staffList.append(s)
@@ -193,6 +194,20 @@ def setDefaultWallpaper():
 def setMissingWallpaper():
 	fullPath = os.path.abspath(config.missingWallpaper)
 	setWallpaper(fullPath, True)
+
+# these are just wrappers for the requests library
+# they disable SSL verification because that broke on jack's laptop
+def textReq(url):
+	# return a text response from a url
+	return requests.get(url, verify=False).text
+
+def contentReq(url):
+	# return a content response from a url
+	return requests.get(url, verify=False).content
+
+def jsonReq(url):
+	# return a json response from a url
+	return json.loads(textReq(url))
 
 def main():
 	# create temp folders
