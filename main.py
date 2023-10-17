@@ -180,6 +180,7 @@ def fetchAndSave():
 		f.write(json.dumps(staffList))
 		f.close()
 
+# find the staff member in the list and return their image
 def findStaffMemberImageURL(name):
 	# does the staff list file exist?
 	try:
@@ -218,9 +219,12 @@ def findStaffMemberImageURL(name):
 	return None
 
 
+# actually sets the wallpaper using beautiful windows APIs
 def setWallpaper(filePath, stretch=False):
 	print(f"Setting wallpaper to {filePath}, stretch={stretch}")
 
+	# this seems to not actually work, but it's here anyway
+	# i love windows
 	if stretch:
 		# stretch is 1
 		style = 1
@@ -281,8 +285,8 @@ def jsonReq(url):
 	# return a json response from a url
 	return json.loads(textReq(url))
 
+# make the temp folders if they don't exist
 def makeTempFolders():
-	# create temp folders
 	if not os.path.exists(tempFolder):
 		os.makedirs(tempFolder)
 	if not os.path.exists(f"{tempFolder}images"):
@@ -312,7 +316,6 @@ def get_legacy_session():
 	}
 	session.mount('https://', CustomHttpAdapter(ctx))
 	return session
-
 
 if __name__ == "__main__":
 	checkConfig()

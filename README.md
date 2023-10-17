@@ -3,7 +3,7 @@ Set your computer wallpaper to your current lecturer, according to your timetabl
 
 Sorry about the code quality. This was written in the space of a few hours, written between lectures (definitely not during...).
 
-Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer.
+Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer. Only works on Windows, but there are probably easy ways to port it to macOS/Linux DEs.
 
 ## Requirements
 ```
