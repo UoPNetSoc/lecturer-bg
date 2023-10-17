@@ -15,7 +15,7 @@
 	}
 	
 	# run the epic vbs scripts
-	$action = New-ScheduledTaskAction -Execute "$PSScriptRoot$arg.vbs"
+	$action = New-ScheduledTaskAction -Execute "$PSScriptRoot\$arg.vbs"
 	
 	$principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive
 	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
