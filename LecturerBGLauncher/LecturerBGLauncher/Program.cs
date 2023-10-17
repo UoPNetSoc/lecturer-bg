@@ -30,7 +30,7 @@ public static class Program
             start.FileName = "python";
             start.Arguments = "main.py";
             start.UseShellExecute = false;
-            start.CreateNoWindow = false;
+            start.CreateNoWindow = true;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start)!)
             {
