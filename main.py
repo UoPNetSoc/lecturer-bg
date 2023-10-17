@@ -19,20 +19,40 @@ import pillow_avif
 
 import config # not a very good way to do it, but it works
 
-# check the config
-if config.ttURL == None:
-	raise Exception("No timetable URL set in config.py (see the README for help!)")
-
-if config.defaultWallpaper == None:
-	raise Exception("No default wallpaper set in config.py (see the README for help!)")
-
-if config.missingWallpaper == None:
-	raise Exception("No missing wallpaper set in config.py (see the README for help!)")
-
 # extra conf stuff but the user won't need to mess with it
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
+rinatTime = False # set to true to test the wallpaper - it should always set the wallpaper to rinat
+
+def main():
+	# get arguments
+	firstArg = None
+	try:
+		firstArg = sys.argv[1]
+	except IndexError:
+		print("No arguments! Please see the README for help on how to run.")
+		sys.exit()
+
+	# python doesnt have nice switch statements :(
+
+	if firstArg == "update":
+		fetchAndSave()
+	elif firstArg == "set":
+		updateBackground()
+	else:
+		print(f"Unrecognised argument '{firstArg}', please see the README for help on how to run.")
+
+# check the config
+def checkConfig():
+	if config.ttURL == None:
+		raise Exception("No timetable URL set in config.py (see the README for help!)")
+
+	if config.defaultWallpaper == None:
+		raise Exception("No default wallpaper set in config.py (see the README for help!)")
+
+	if config.missingWallpaper == None:
+		raise Exception("No missing wallpaper set in config.py (see the README for help!)")
 
 # checks whether there is a current event
 # if there is, the wallpaper is updated accordingly
@@ -46,15 +66,11 @@ def updateBackground():
 		with open(f"{tempFolder}staff.json") as f:
 			f.close()
 	except FileNotFoundError:
-		downloadTT()
+		fetchAndSave()
 
 	# open the files and parse them
 	with open(f"{tempFolder}tt.ics") as f:
 		calendar = icalendar.Calendar.from_ical(f.read())
-		f.close()
-
-	with open(f"{tempFolder}staff.json") as f:
-		staffJson = json.loads(f.read())
 		f.close()
 
 	for event in calendar.walk('VEVENT'):
@@ -65,7 +81,8 @@ def updateBackground():
 
 		# check if the event is happening now
 		now = datetime.now()
-		# now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
+		if rinatTime == True:
+			now = datetime(2023, 10, 17, 10, 0, 0) # fixed time for testing
 
 		# fix now timezone?
 		now = now.astimezone()
@@ -91,51 +108,35 @@ def updateBackground():
 			firstName = lecturer.split(", ")[1]
 			lastName = lecturer.split(", ")[0]
 
-			
-			# find the staff member in the list
-			for s in staffJson:
-				ourName = f"{firstName} {lastName}".lower()
-				name = s.get("name").lower().replace("dr ", "").replace("prof ", "")
-				
-				print(f"Checking '{name}' against '{ourName}'")
+			# find the staff member's image
+			image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
 
-				if(name == ourName):
-					# we have found our staff member, get their images
-					images = s.get("images")
-					
-					if images == None:
-						print("No images found for this staff member, setting missing wallpaper")
-						setMissingWallpaper()
-						return # we don't need to do anything else
-					
-					# get the first image
-					image = images[0] # is just the staff member's name
-					imageURL = f"https://soc.port.ac.uk/staff/pix/{image}/{image}.avif"
-					print(imageURL)
+			if image == None:
+				print("Couldn't find staff member in staff list")
+				setMissingWallpaper()
+				return
+			# else:
 
-					# check if the image is already downloaded
-					# if it is, then we don't need to download it again
+			# check if the image is already downloaded
+			# if it is, then we don't need to download it again
+			if os.path.isfile(f"{tempFolder}images/{image}.avif"):
+				print("Image already downloaded")
+			else:
+				# download the image
+				print("Downloading image")
+				imageResp = contentReq(imageURL)
+				with open(f"{tempFolder}images/{image}.avif", "wb") as f:
+					f.write(imageResp.content)
+					f.close()
+		
+			# set the wallpaper
+			# full path of the image is needed
+			print("Setting wallpaper")
+			fullPath = os.path.abspath(f"{tempFolder}images/{image}.avif")
 
-					if os.path.isfile(f"{tempFolder}staff/{image}.avif"):
-						print("Image already downloaded")
-					else:
-						# download the image
-						print("Downloading image")
-						imageResp = contentReq(imageURL)
-						with open(f"{tempFolder}staff/{image}.avif", "wb") as f:
-							f.write(imageResp.content)
-							f.close()
-				
-					# set the wallpaper
-					# full path of the image is needed
-					print("Setting wallpaper")
-					fullPath = os.path.abspath(f"{tempFolder}staff/{image}.avif")
+			fixedImagePath = fixImageAndGetPath(fullPath)
 
-					fixedImagePath = fixImageAndGetPath(fullPath)
-
-					setWallpaper(fixedImagePath, True)
-
-					return # done
+			setWallpaper(fixedImagePath, True)
 
 			# for some reason it sometimes gives multiple events at once?
 			# this is a janky fix for that, so it only does the first one
@@ -147,7 +148,7 @@ def updateBackground():
 	setDefaultWallpaper()
 
 # this updates the local copy of the timetable/staff list
-def downloadTT():
+def fetchAndSave():
 	# download the timetable and save it
 	
 	# TODO: check if the local copies is different
@@ -178,6 +179,44 @@ def downloadTT():
 		print("Saving staff list")
 		f.write(json.dumps(staffList))
 		f.close()
+
+def findStaffMemberImageURL(name):
+	# does the staff list file exist?
+	try:
+		with open(f"{tempFolder}staff.json") as f:
+			f.close()
+	except FileNotFoundError:
+		fetchAndSave()
+
+	with open(f"{tempFolder}staff.json") as f:
+		staffJson = json.loads(f.read())
+		f.close()
+
+	name = name.lower().replace("dr ", "").replace("prof ", "")
+
+	# find the staff member in the list
+	for s in staffJson:
+		sName = s.get("name").lower().replace("dr ", "").replace("prof ", "")
+		
+		print(f"Checking '{sName}' against '{name}'")
+
+		if(sName == name):
+			# we have found our staff member, get their images
+			images = s.get("images")
+			
+			if images == None:
+				print("No images found for this staff member, setting missing wallpaper")
+				setMissingWallpaper()
+				return # we don't need to do anything else
+			
+			# get the first image
+			image = images[0] # is just the staff member's name
+			imageURL = f"https://soc.port.ac.uk/staff/pix/{image}/{image}.avif"
+			return(image, imageURL)
+		
+	# if we get here, then we haven't found the staff member
+	return None
+
 
 def setWallpaper(filePath, stretch=False):
 	print(f"Setting wallpaper to {filePath}, stretch={stretch}")
@@ -226,6 +265,8 @@ def fixImageAndGetPath(imgPath):
 
 	return newPath
 
+
+
 # these are just wrappers for the requests library
 # they disable SSL verification because that broke on jack's laptop
 def textReq(url):
@@ -240,15 +281,15 @@ def jsonReq(url):
 	# return a json response from a url
 	return json.loads(textReq(url))
 
-def tempFolders():
+def makeTempFolders():
 	# create temp folders
 	if not os.path.exists(tempFolder):
 		os.makedirs(tempFolder)
-	if not os.path.exists(f"{tempFolder}staff"):
-		os.makedirs(f"{tempFolder}staff")
+	if not os.path.exists(f"{tempFolder}images"):
+		os.makedirs(f"{tempFolder}images")
 
 # This random code is from https://stackoverflow.com/a/73519818
-# Hopefully it fixes Jack's issue, but really shouldn't be neccesary
+# Fixes Jack's issue (#6), but really shouldn't be neccesary
 class CustomHttpAdapter (requests.adapters.HTTPAdapter):
     # "Transport adapter" that allows us to use custom ssl_context.
 
@@ -262,33 +303,18 @@ class CustomHttpAdapter (requests.adapters.HTTPAdapter):
             block=block, ssl_context=self.ssl_context)
 
 def get_legacy_session():
-    ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-    ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT
-    session = requests.session()
-    session.mount('https://', CustomHttpAdapter(ctx))
-    return session
+	ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+	ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT
 
-# temp folders every time
-tempFolders()
+	session = requests.session()
+	session.headers = {
+		'User-Agent': 'Lecturer BG (+https://github.com/UoPNetSoc/lecturer-bg)'
+	}
+	session.mount('https://', CustomHttpAdapter(ctx))
+	return session
 
-# get arguments
-firstArg = None
-try:
-	firstArg = sys.argv[1]
-except IndexError:
-	print("No arguments! Please see the README for help on how to run.")
-	sys.exit()
 
-# python doesnt have nice switch statements :(
-
-if firstArg == "update":
-	downloadTT()
-	sys.exit()
-
-if firstArg == "set":
-	updateBackground()
-	sys.exit()
-
-# unrecongised argument
-print(f"Unrecognised argument '{firstArg}', please see the README for help on how to run.")
-sys.exit()
+if __name__ == "__main__":
+	checkConfig()
+	makeTempFolders()
+	main()
