@@ -2,7 +2,9 @@
 Set your computer wallpaper to your current lecturer, according to your timetable (for the UoP School of Computing) 
 
 ## Requirements
-[`py-wallpaper`](https://pypi.org/project/py-wallpaper/)
+- `requests`
+- `py-wallpaper`
+
 
 ## Config
 `config.py` should look like the following:
