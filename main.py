@@ -200,7 +200,7 @@ def textReq(url):
 
 def contentReq(url):
 	# return a content response from a url
-	return get_legacy_session().get(url).content
+	return get_legacy_session().get(url)
 
 def jsonReq(url):
 	# return a json response from a url
