@@ -1,3 +1,6 @@
+# adds the two VBS scripts to the windows task scheduler
+# requires powershell 3 because of $PSScriptRoot, otherwise replace with the full path yourself
+
 1..2 | ForEach-Object {
 	if ($_ -eq 1) {
         $arg = "set"
@@ -10,12 +13,12 @@
 		$triggerAtStartup = New-ScheduledTaskTrigger -AtStartup
 		$trigger = @($triggerAtStartup, $triggerDaily)
 	}
-
-	# run powershell minimized that has a python script as argument
-	$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-WindowStyle Minimized -ExecutionPolicy Bypass -Command 'python.exe $script $arg'"
+	
+	# run the epic vbs scripts
+	$action = New-ScheduledTaskAction -Execute "$PSScriptRoot$arg.vbs"
 	
 	$principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive
 	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
 
-	Register-ScheduledTask -force -Action $action -Trigger $trigger -TaskName "Lecturer BG $arg" -Principal $principal -Settings $settings
+	Register-ScheduledTask -force -Action $action -Trigger $trigger -TaskPath "LecturerBG" -TaskName "Lecturer BG $arg" -Principal $principal -Settings $settings
 }

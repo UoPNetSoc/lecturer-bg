@@ -32,13 +32,9 @@ missingWallpaper = "unknown.jpg"
 3. You should remove everything before `http://timetable.myport...`, so you end up with the URL `http://timetable.myport.ac.uk/123456789ABCD.ics`.
 
 # Running the script
-To run the script, it is recommended to add tasks to the Windows Task Scheduler. There should be two tasks.
+To run the script, it is easiest to add tasks to the Windows Task Scheduler. There should be two tasks, one that runs `main.py set` to update the wallpaper, and another that runs `main.py update` that periodically updates the local copy of the staff list and timetable.
 
-One that calls the script with the argument of `update` (`python main.py update`), which will update the timetable and staff list - this should be run - this shouldn't need to be run very often.
-
-The other should call the script with the argument of `set` (`python main.py set`), which will set to the current lecturer, or the default if there is no lecturer - this should be run every few minutes (or as frequently as you like) to keep the wallpaper up to date.
-
-[schedule.ps1](schedule.ps1) will add the two tasks as described above.
+There is a [PowerShell script](scripts/schedule.ps1) that will create the tasks for you (needs to be ran as admin I think). The beautiful VBScript files ensure that the program runs without a console window visible. It was ChatGPT's idea, so don't blame me.
 
 # ToDo:
 See GitHub Issues for list of things to do.

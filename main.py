@@ -23,7 +23,7 @@ import config # not a very good way to do it, but it works
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
-rinatTime = False # set to true to test the wallpaper - it should always set the wallpaper to rinat
+rinatTime = True # set to true to test the wallpaper - it should always set the wallpaper to rinat
 
 def main():
 	# get arguments
