@@ -13,6 +13,10 @@ import ctypes # for setting the wallpaper
 import os # for getting the full path of the image
 import sys # for getting the arguments
 
+# for funny image manipulation
+from PIL import Image
+import pillow_avif
+
 import config # not a very good way to do it, but it works
 
 # check the config
@@ -60,8 +64,8 @@ def updateBackground():
 		notes = event.get('description')
 
 		# check if the event is happening now
-		now = datetime.now()
-		# now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
+		# now = datetime.now()
+		now = datetime(2023, 10, 17, 11, 0, 0) # fixed time for testing
 
 		# fix now timezone?
 		now = now.astimezone()
@@ -126,7 +130,10 @@ def updateBackground():
 					# full path of the image is needed
 					print("Setting wallpaper")
 					fullPath = os.path.abspath(f"{tempFolder}staff/{image}.avif")
-					setWallpaper(fullPath, True)
+
+					fixedImagePath = fixImageAndGetPath(fullPath)
+
+					setWallpaper(fixedImagePath, True)
 
 					return # done
 
@@ -192,6 +199,25 @@ def setMissingWallpaper():
 	fullPath = f"{currentFolder}\\{config.missingWallpaper}"
 	setWallpaper(fullPath, True)
 
+# beautifully named function
+# (it stretches the image to the screen resolution, and then saves it as a jpg)
+# returns the path to the new jpg
+def fixImageAndGetPath(imgPath):
+	print(f"Fixing up {imgPath} with pillow")
+	
+	# get the screen resolution
+	screenWidth = ctypes.windll.user32.GetSystemMetrics(0)
+	screenHeight = ctypes.windll.user32.GetSystemMetrics(1)
+	
+	# load the image
+	img = Image.open(imgPath)
+	stretched = img.resize((screenWidth, screenHeight)).convert("RGB")
+	
+	# save as jpg with 10% quality
+	stretched.save(imgPath.replace(".avif", ".jpg"), quality=10)
+
+	return imgPath.replace(".avif", ".jpg") 
+
 # these are just wrappers for the requests library
 # they disable SSL verification because that broke on jack's laptop
 def textReq(url):
@@ -212,7 +238,6 @@ def tempFolders():
 		os.makedirs(tempFolder)
 	if not os.path.exists(f"{tempFolder}staff"):
 		os.makedirs(f"{tempFolder}staff")
-
 
 # This random code is from https://stackoverflow.com/a/73519818
 # Hopefully it fixes Jack's issue, but really shouldn't be neccesary
