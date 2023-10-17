@@ -28,7 +28,7 @@ public static class Program
         {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "python";
-            start.Arguments = "main.py";
+            start.Arguments = "main.py set";
             start.UseShellExecute = false;
             start.CreateNoWindow = true;
             start.RedirectStandardOutput = true;
