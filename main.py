@@ -27,7 +27,8 @@ if config.missingWallpaper == None:
 
 # extra conf stuff but the user won't need to mess with it
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
-tempFolder = "tmp/"
+currentFolder = os.path.abspath(os.path.dirname(__file__))
+tempFolder = f"{currentFolder}\\tmp\\"
 
 # checks whether there is a current event
 # if there is, the wallpaper is updated accordingly
@@ -80,7 +81,7 @@ def updateBackground():
 			
 			if lecturer == None:
 				print("Couldn't find lecturer in notes")
-				# TODO: set default wallpaper if no lecturer is found, or no event
+				setMissingWallpaper()
 				return
 			
 			firstName = lecturer.split(", ")[1]
@@ -184,11 +185,11 @@ def setWallpaper(filePath, stretch=False):
 	ctypes.windll.user32.SystemParametersInfoW(20, 0, filePath, style)
 
 def setDefaultWallpaper():
-	fullPath = os.path.abspath(config.defaultWallpaper)
+	fullPath = f"{currentFolder}\\{config.defaultWallpaper}"
 	setWallpaper(fullPath)
 
 def setMissingWallpaper():
-	fullPath = os.path.abspath(config.missingWallpaper)
+	fullPath = f"{currentFolder}\\{config.missingWallpaper}"
 	setWallpaper(fullPath, True)
 
 # these are just wrappers for the requests library
