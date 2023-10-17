@@ -3,10 +3,10 @@
 
 @REM Current directory:
 set programPath=%~dp0
-set mainPy=%programPath%main.py
+set script=%programPath%bg.ps1
 
 @REM Checks and sets the background every 5 minutes
-schtasks /create /np /sc minute /mo 5 /tn "Lecturer BG Set" /tr "PowerShell -windowstyle hidden -command 'python %mainPy% set'"
+schtasks /create /np /sc minute /mo 5 /tn "Lecturer BG Set" /tr "%script% set"
 
 @REM Update daily
-schtasks /create /np /sc daily /tn "Lecturer BG Update" /tr "PowerShell -windowstyle hidden -command 'python %mainPy% update'"
+schtasks /create /np /sc daily /tn "Lecturer BG Update" /tr "%script% update"
