@@ -5,6 +5,8 @@ from time import sleep # for sleeping
 from datetime import datetime # for checking the time
 from pytz import utc # for timezone stuff
 import requests # for downloading the timetable and etc
+import urllib3 # for downloading the timetable and etc
+import ssl # for downloading the timetable and etc
 import icalendar # for parsing the timetable
 import json # for parsing the staff list
 import ctypes # for setting the wallpaper
@@ -58,7 +60,7 @@ def updateBackground():
 
 		# check if the event is happening now
 		now = datetime.now()
-		# now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
+		now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
 
 		# fix now timezone?
 		now = now.astimezone()
@@ -193,11 +195,11 @@ def setMissingWallpaper():
 # they disable SSL verification because that broke on jack's laptop
 def textReq(url):
 	# return a text response from a url
-	return requests.get(url, verify=False).text
+	return get_legacy_session().get(url).text
 
 def contentReq(url):
 	# return a content response from a url
-	return requests.get(url, verify=False).content
+	return get_legacy_session().get(url).content
 
 def jsonReq(url):
 	# return a json response from a url
@@ -210,6 +212,27 @@ def tempFolders():
 	if not os.path.exists(f"{tempFolder}staff"):
 		os.makedirs(f"{tempFolder}staff")
 
+
+# This random code is from https://stackoverflow.com/a/73519818
+# Hopefully it fixes Jack's issue, but really shouldn't be neccesary
+class CustomHttpAdapter (requests.adapters.HTTPAdapter):
+    # "Transport adapter" that allows us to use custom ssl_context.
+
+    def __init__(self, ssl_context=None, **kwargs):
+        self.ssl_context = ssl_context
+        super().__init__(**kwargs)
+
+    def init_poolmanager(self, connections, maxsize, block=False):
+        self.poolmanager = urllib3.poolmanager.PoolManager(
+            num_pools=connections, maxsize=maxsize,
+            block=block, ssl_context=self.ssl_context)
+
+def get_legacy_session():
+    ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT
+    session = requests.session()
+    session.mount('https://', CustomHttpAdapter(ctx))
+    return session
 
 # temp folders every time
 tempFolders()
