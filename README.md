@@ -2,15 +2,15 @@
 Set your computer wallpaper to your current lecturer, according to your timetable (for the UoP School of Computing) 
 
 ## Requirements
-- `requests`
+- `requests`, `time`
 - `py-wallpaper`
-
+- `icalendar`
 
 ## Config
 `config.py` should look like the following:
 ```python
-# tt_url should be set to the ical url of your timetable
-tt_url = "http://timetable.myport.ac.uk/123456789ABCD.ics"
+# ttURL should be set to the ical url of your timetable
+ttURL = "http://timetable.myport.ac.uk/123456789ABCD.ics"
 ```
 
 ## Finding the iCal Link
