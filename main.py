@@ -60,7 +60,7 @@ def updateBackground():
 
 		# check if the event is happening now
 		now = datetime.now()
-		now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
+		# now = datetime(2023, 10, 17, 14, 0, 0) # fixed time for testing
 
 		# fix now timezone?
 		now = now.astimezone()
