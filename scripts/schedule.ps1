@@ -6,7 +6,9 @@
         $arg = "set"
 		# we can run this hourly, since lectures can only start and finish on the hour
 		# im not sure how this will work with the repetition interval, and when during the hour it will run
-		$trigger = New-ScheduledTaskTrigger -Once -At "08:00:05" -RepetitionInterval ([TimeSpan]::FromHours(1))
+		$triggerHourly = New-ScheduledTaskTrigger -Once -At "08:00:05" -RepetitionInterval ([TimeSpan]::FromHours(1))
+		$triggerAtStartup = New-ScheduledTaskTrigger -AtStartup
+		$trigger = @($triggerAtStartup, $triggerHourly)
 	}
     elseif ($_ -eq 2) {
 		$arg = "update"
