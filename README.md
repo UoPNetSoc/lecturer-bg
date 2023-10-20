@@ -1,4 +1,6 @@
 # Lecturer Background
+![A photograph of a laptop, with the desktop wallpaper set to a stretched photograph of a Russian tutor](https://github.com/UoPNetSoc/lecturer-bg/assets/14424577/b616165a-a90c-4f35-a1e3-0dff21971525)
+
 Set your computer wallpaper to your current lecturer, according to your timetable (for the UoP School of Computing) 
 
 Sorry about the code quality. This was written in the space of a few hours, written between lectures (definitely not during...).
@@ -38,3 +40,6 @@ There is a [PowerShell script](scripts/schedule.ps1) that will create the tasks 
 
 # ToDo:
 See GitHub Issues for list of things to do.
+
+# Quotes from Lecturers
+*"A little bit weird but quite cool - I need to have a more stern expression"* - Rinat
