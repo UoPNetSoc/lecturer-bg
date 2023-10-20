@@ -1,5 +1,5 @@
 # Lecturer Background
-![A photograph of a laptop, with the desktop wallpaper set to a stretched photograph of a Russian tutor](https://github.com/UoPNetSoc/lecturer-bg/assets/14424577/b616165a-a90c-4f35-a1e3-0dff21971525)
+![A photograph of a laptop, with the desktop wallpaper set to a stretched photograph of a Russian tutor in a white shirt](https://github.com/UoPNetSoc/lecturer-bg/assets/14424577/5967b58f-aaab-4ef1-ab80-12dfd76a208e)
 
 Set your computer wallpaper to your current lecturer, according to your timetable (only works for the UoP School of Computing).
 
