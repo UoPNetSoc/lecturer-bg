@@ -93,6 +93,9 @@ def updateBackground():
 			print(f"Current event: {title} ({startTime} - {endTime})")
 			print(f"Notes: {notes}")
 			
+			# TODO: NEW UOP TIMETABLING SYSTEM
+			# SEE ISSUE #9
+
 			# find the string that contains lecturer
 			lecturer = None
 			for line in notes.split("\n"):
