@@ -46,3 +46,4 @@ See GitHub Issues for list of things to do.
 
 # Fun Quotes from Lecturers
 *"A little bit weird but quite cool - I need to have a more stern expression"* - Rinat
+*"You make me laugh! I dont mind."* - Linda
