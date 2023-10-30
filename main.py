@@ -109,8 +109,8 @@ def updateBackground():
 						
 			if "," in lastLine:
 				split = lastLine.split(", ")
-				firstName = split[1]
-				lastName = split[0]
+				firstName = split[1].replace(" ", "")
+				lastName = split[0].replace(" ", "")
 				print(f"Found lecturer, hopefully: {firstName} {lastName}")
 			else:
 				print("Couldn't find lecturer in notes :(")
