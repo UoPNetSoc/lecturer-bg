@@ -49,6 +49,6 @@ See GitHub Issues for list of things to do.
 
 *"You make me laugh! I dont mind."* - Linda
 
-*"\*Picks up laptop\* This is an example of inappropriate lab behaviour" - Vas
+*"\*Picks up laptop\* This is an example of inappropriate lab behaviour"* - Vas
 
-"\*Laughs hysterically* Would you like more photos? I can send more photos, send me an email" - Farzad
+*"\*Laughs hysterically* Would you like more photos? I can send more photos, send me an email"* - Farzad
