@@ -44,11 +44,12 @@ There is a [PowerShell script](scripts/schedule.ps1) that will create the tasks 
 # To Dos:
 See GitHub Issues for list of things to do.
 
+
 # Fun Quotes from Lecturers
 *"A little bit weird but quite cool - I need to have a more stern expression"* - Rinat
 
 *"You make me laugh! I dont mind."* - Linda
 
-*"\*Picks up laptop\* This is an example of inappropriate lab behaviour"* - Vas
+*"-picks up laptop and shows the class- This is an example of inappropriate lab behaviour"* - Vas
 
-*"\*Laughs hysterically* Would you like more photos? I can send more photos, send me an email"* - Farzad
+*"-laughs hysterically and slaps Jack on the back- Would you like more photos? I can send more photos, send me an email"* - Farzad
