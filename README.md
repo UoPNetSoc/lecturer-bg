@@ -48,3 +48,7 @@ See GitHub Issues for list of things to do.
 *"A little bit weird but quite cool - I need to have a more stern expression"* - Rinat
 
 *"You make me laugh! I dont mind."* - Linda
+
+*"\*Picks up laptop\* This is an example of inappropriate lab behaviour" - Vas
+
+"\*Laughs hysterically* Would you like more photos? I can send more photos, send me an email" - Farzad
