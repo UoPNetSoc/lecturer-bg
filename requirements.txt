@@ -3,4 +3,4 @@ Pillow==9.4.0
 pillow_avif_plugin==1.4.1
 pytz==2023.3.post1
 Requests==2.31.0
-urllib3==2.0.6
+urllib3==2.0.7
