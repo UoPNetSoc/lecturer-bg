@@ -8,6 +8,7 @@ import requests # for downloading the timetable and etc
 import urllib3 # for downloading the timetable and etc
 import ssl # for downloading the timetable and etc
 import icalendar # for parsing the timetable
+import recurring_ical_events # new timetable system brokey
 import json # for parsing the staff list
 import ctypes # for setting the wallpaper
 import os # for getting the full path of the image
@@ -70,86 +71,84 @@ def updateBackground():
 
 	# open the files and parse them
 	with open(f"{tempFolder}tt.ics") as f:
-		calendar = icalendar.Calendar.from_ical(f.read())
+		cal = icalendar.Calendar.from_ical(f.read())
 		f.close()
 
-	for event in calendar.walk('VEVENT'):
+	now = datetime.now()
+
+	if rinatTime == True:
+		now = datetime(2023, 10, 17, 10, 0, 0) # fixed time for testing
+	
+	now = now.astimezone()
+
+	nowEvents = recurring_ical_events.of(cal).at(now)
+
+	for event in nowEvents:
 		title = event.get('summary')
 		startTime = event.get('dtstart').dt
 		endTime = event.get('dtend').dt
 		notes = event.get('description')
 
-		# check if the event is happening now
-		now = datetime.now()
-		if rinatTime == True:
-			now = datetime(2023, 10, 17, 10, 0, 0) # fixed time for testing
-
-		# fix now timezone?
-		now = now.astimezone()
-
-		if startTime <= now <= endTime:
-			# this event is happening now!
-
-			print(f"Current event: {title} ({startTime} - {endTime})")
-			print(f"Notes: {notes}")
-			
-			# TODO: NEW UOP TIMETABLING SYSTEM
-			# SEE ISSUE #9
-
-			lines = notes.split("\n")
-			
-			lastLine = lines[-2] # for some reason the last line is always blank so get second last
-
-			print(f"Last line: {lastLine}")
-
-			# if contains a comma then we will assume it's a lecturer
-			# example: Bakhshov, Nadim, Boakes, Rich
-			# we will go based on the first lecturer in the list, so 0 and 1 when split(", ")
-			# TODO: we could make a fun grid of multiple lecturers?
-						
-			if "," in lastLine:
-				split = lastLine.split(", ")
-				firstName = split[1].replace(" ", "")
-				lastName = split[0].replace(" ", "")
-				print(f"Found lecturer, hopefully: {firstName} {lastName}")
-			else:
-				print("Couldn't find lecturer in notes :(")
-				setMissingWallpaper()
-				return
-
-			# find the staff member's image
-			image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
-
-			if image == None:
-				print("Couldn't find staff member in staff list :(")
-				setMissingWallpaper()
-				return
-			# else:
-
-			# check if the image is already downloaded
-			# if it is, then we don't need to download it again
-			if os.path.isfile(f"{tempFolder}images/{image}.avif"):
-				print(f"Image {image} already downloaded")
-			else:
-				# download the image
-				print("Downloading image")
-				imageResp = contentReq(imageURL)
-				with open(f"{tempFolder}images/{image}.avif", "wb") as f:
-					f.write(imageResp.content)
-					f.close()
+		print(f"Current event: {title} ({startTime} - {endTime})")
+		print(f"Notes: {notes}")
 		
-			# set the wallpaper
-			# full path of the image is needed
-			fullPath = os.path.abspath(f"{tempFolder}images/{image}.avif")
+		# TODO: NEW UOP TIMETABLING SYSTEM
+		# SEE ISSUE #9
 
-			# "fix" is a bit of a stretch
-			fixedImagePath = fixImageAndGetPath(fullPath)
+		lines = notes.split("\n")
+		
+		lastLine = lines[-2] # for some reason the last line is always blank so get second last
 
-			setWallpaper(fixedImagePath, True)
+		print(f"Last line: {lastLine}")
 
-			# for some reason it sometimes gives multiple events at once?
-			# this is a janky fix for that, so it only does the first one
+		# if contains a comma then we will assume it's a lecturer
+		# example: Bakhshov, Nadim, Boakes, Rich
+		# we will go based on the first lecturer in the list, so 0 and 1 when split(", ")
+		# TODO: we could make a fun grid of multiple lecturers?
+					
+		if "," in lastLine:
+			split = lastLine.split(", ")
+			firstName = split[1].replace(" ", "")
+			lastName = split[0].replace(" ", "")
+			print(f"Found lecturer, hopefully: {firstName} {lastName}")
+		else:
+			print("Couldn't find lecturer in notes :(")
+			setMissingWallpaper()
 			return
+
+		# find the staff member's image
+		image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
+
+		if image == None:
+			print("Couldn't find staff member in staff list :(")
+			setMissingWallpaper()
+			return
+		# else:
+
+		# check if the image is already downloaded
+		# if it is, then we don't need to download it again
+		if os.path.isfile(f"{tempFolder}images/{image}.avif"):
+			print(f"Image {image} already downloaded")
+		else:
+			# download the image
+			print("Downloading image")
+			imageResp = contentReq(imageURL)
+			with open(f"{tempFolder}images/{image}.avif", "wb") as f:
+				f.write(imageResp.content)
+				f.close()
+	
+		# set the wallpaper
+		# full path of the image is needed
+		fullPath = os.path.abspath(f"{tempFolder}images/{image}.avif")
+
+		# "fix" is a bit of a stretch
+		fixedImagePath = fixImageAndGetPath(fullPath)
+
+		setWallpaper(fixedImagePath, True)
+
+		# for some reason it sometimes gives multiple events at once?
+		# this is a janky fix for that, so it only does the first one
+		return
 		
 	# if we get here, then there is no current event
 	# so we set the default wallpaper
@@ -162,13 +161,13 @@ def fetchAndSave():
 	
 	# TODO: check if the local copies is different
 	# and dont redownload if it's the same
-	print("Downloading timetable")
-	tt = textReq(config.ttURL)
+	# print("Downloading timetable")
+	# tt = textReq(config.ttURL)
 
-	with open(f"{tempFolder}tt.ics", "w") as f:
-		print("Saving timetable")
-		f.write(tt)
-		f.close()
+	# with open(f"{tempFolder}tt.ics", "w") as f:
+	# 	print("Saving timetable")
+	# 	f.write(tt)
+	# 	f.close()
 	
 	print("Downloading staff list")
 	staffResp = jsonReq(staffJson)
