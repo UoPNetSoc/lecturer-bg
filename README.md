@@ -34,7 +34,7 @@ missingWallpaper = "unknown.jpg"
 1. Visit CMISGo, the University's timetabling system at [timetabling.port.ac.uk](https://timetabling.port.ac.uk/Web/Timetable)
 2. Select "Administration" and then "My mobile" in the menu in the top right
 3. In the popup, there will be an option to set up access from a mobile device calendar, using the "Create link" button.
-4. This is the link you need to insert into the config! _You can also use this link to subscribe to your timetable in any calendaring app, such as on your phone!_
+4. This is the link you need to insert into the config! _You can also use this link to subscribe to your timetable in any calendaring app, such as google calendar!_
 
 # Running the Script
 To run the script, it is easiest to add tasks to the Windows Task Scheduler. There should be two tasks, one that runs `main.py set` to update the wallpaper, and another that runs `main.py update` that periodically updates the local copy of the staff list and timetable.
