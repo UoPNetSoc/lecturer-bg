@@ -43,7 +43,7 @@ def main():
 		updateBackground()
 	else:
 		print(f"Unrecognised argument '{firstArg}', please see the README for help on how to run.")
-
+#yandere dev ^^^
 # check the config
 def checkConfig():
 	if config.ttURL == None:
