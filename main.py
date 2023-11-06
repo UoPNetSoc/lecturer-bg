@@ -93,20 +93,29 @@ def updateBackground():
 			print(f"Current event: {title} ({startTime} - {endTime})")
 			print(f"Notes: {notes}")
 			
-			# find the string that contains lecturer
-			lecturer = None
-			for line in notes.split("\n"):
-				if "lecturer" in line.lower():
-					lecturer = line.split(": ")[1]
-					break
+			# TODO: NEW UOP TIMETABLING SYSTEM
+			# SEE ISSUE #9
+
+			lines = notes.split("\n")
 			
-			if lecturer == None:
+			lastLine = lines[-2] # for some reason the last line is always blank so get second last
+
+			print(f"Last line: {lastLine}")
+
+			# if contains a comma then we will assume it's a lecturer
+			# example: Bakhshov, Nadim, Boakes, Rich
+			# we will go based on the first lecturer in the list, so 0 and 1 when split(", ")
+			# TODO: we could make a fun grid of multiple lecturers?
+						
+			if "," in lastLine:
+				split = lastLine.split(", ")
+				firstName = split[1].replace(" ", "")
+				lastName = split[0].replace(" ", "")
+				print(f"Found lecturer, hopefully: {firstName} {lastName}")
+			else:
 				print("Couldn't find lecturer in notes :(")
 				setMissingWallpaper()
 				return
-
-			firstName = lecturer.split(", ")[1]
-			lastName = lecturer.split(", ")[0]
 
 			# find the staff member's image
 			image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
