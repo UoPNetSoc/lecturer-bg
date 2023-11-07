@@ -26,6 +26,7 @@ staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
 rinatTime = False # set to true to test the wallpaper - it should always set the wallpaper to rinat
+nadimTime = False # set to true to test the wallpaper - it should always set the wallpaper to nadim
 
 def main():
 	# get arguments
@@ -85,6 +86,9 @@ def updateBackground():
 
 	if rinatTime == True:
 		now = datetime(2023, 10, 16, 17, 0, 0) # fixed time for testing
+
+	if nadimTime == True:
+		now = datetime(2023, 11, 7, 14, 15, 25)
 	
 	now = now.astimezone()
 
