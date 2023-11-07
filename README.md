@@ -38,10 +38,15 @@ missingWallpaper = "unknown.jpg"
 3. In the popup, there will be an option to set up access from a mobile device calendar, using the "Create link" button.
 4. This is the link you need to insert into the config! _You can also use this link to subscribe to your timetable in any calendaring app, such as an app on your phone!_
 
+### A note on the Timetable
+Sometimes CMISGo breaks and the program will fail download the timetable calendar file. In this case, you can download it manually and save it to `tmp/tt.ics`. This is a pain, but I don't think it's the fault of the program. It worked fine with the old timetable system.
+
 # Running the Script
 To run the script, it is easiest to add tasks to the Windows Task Scheduler. There should be two tasks, one that runs `main.py set` to update the wallpaper, and another that runs `main.py update` that periodically updates the local copy of the staff list and timetable.
 
 There is a [PowerShell script](scripts/schedule.ps1) that will create the tasks for you (needs to be ran as admin I think). The beautiful VBScript files ensure that the program runs without a console window visible. It was ChatGPT's idea, so don't blame me.
+
+The first time you run the script, you should do it manually and check the console output for problems. Please open a GitHub issue if you encounter anything weird. This is very hacky and terrible, so things will probably not work first-try for everyone.
 
 # To Dos:
 See GitHub Issues for list of things to do.
