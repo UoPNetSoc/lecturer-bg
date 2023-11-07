@@ -13,7 +13,7 @@ import json # for parsing the staff list
 import ctypes # for setting the wallpaper
 import os # for getting the full path of the image
 import sys # for getting the arguments
-import random
+import random # for choosing random images
 
 # for funny image manipulation
 from PIL import Image, ImageFilter
@@ -25,7 +25,7 @@ import config # not a very good way to do it, but it works
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
-rinatTime = False # set to true to test the wallpaper - it should always set the wallpaper to rinat
+rinatTime = True # set to true to test the wallpaper - it should always set the wallpaper to rinat
 
 def main():
 	# get arguments
@@ -78,7 +78,7 @@ def updateBackground():
 	now = datetime.now()
 
 	if rinatTime == True:
-		now = datetime(2023, 10, 17, 10, 0, 0) # fixed time for testing
+		now = datetime(2023, 10, 16, 17, 0, 0) # fixed time for testing
 	
 	now = now.astimezone()
 
@@ -174,7 +174,7 @@ def updateBackground():
 
 # this updates the local copy of the timetable/staff list
 def fetchAndSave():
-	# download the timetable and save it
+	#download the timetable and save it
 	
 	# TODO: check if the local copies is different
 	# and dont redownload if it's the same
