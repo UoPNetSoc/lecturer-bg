@@ -1,6 +1,7 @@
 # Lecturer Background
 # https://github.com/UoPNetSoc/lecturer-bg
 # By TomR.me, JackConnolly.net (NetSoc.group), 2023
+# Please see the README for information! This is a rare time where it's actually useful!
 
 # To any lecturers who may be looking at this code: sorry. You should probably stop reading now.
 # This is the epitome of bodge. Made in a few hours and then perpetually added to over time.
