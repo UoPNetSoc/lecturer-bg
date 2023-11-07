@@ -1,3 +1,5 @@
+# if any lecturers see this please just be supprised that it works and dont look at the code please its a mess.
+#  we didnt follow any good practices (like at all) and we dont want you to see it
 # Lecturer Wallpaper
 # https://github.com/UoPNetSoc/lecturer-bg
 
@@ -28,7 +30,12 @@ tempFolder = f"{currentFolder}\\tmp\\"
 
 # set these to true to test the wallpaper, SHOULD always set the wallpaper to the respective person
 # will only work for those on the networking course
-# for testing and debugging purposes only, make sure to set to false before committing
+# for testing and debugging purposes only, make sure to set to false before committing(hi its jack i've committed while true wayy too many times)
+# sorry tom
+# sorry tom
+# sorry tom
+# sorry tom
+# this code really is a mess
 rinatTime = False
 nadimTime = False
 
