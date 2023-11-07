@@ -3,7 +3,7 @@
 
 Set your computer wallpaper to your current lecturer, according to your timetable (only works for the UoP School of Computing).
 
-Sorry about the code quality. This was written in the space of a few hours, between lectures (definitely not during...).
+Please don't look at the code... it's baaaaad. Sorry. Everything is a bodge. This was originally hacked together between lectures (def not during), and has been patched and added to ever since.
 
 Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer. Only works on Windows, but there are probably easy ways to port it to macOS/Linux DEs.
 

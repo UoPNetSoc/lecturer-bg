@@ -13,6 +13,7 @@ import json # for parsing the staff list
 import ctypes # for setting the wallpaper
 import os # for getting the full path of the image
 import sys # for getting the arguments
+import random
 
 # for funny image manipulation
 from PIL import Image, ImageFilter
@@ -117,9 +118,9 @@ def updateBackground():
 			return
 
 		# find the staff member's image
-		image, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
+		imageName, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
 
-		if image == None:
+		if imageName == None:
 			print("Couldn't find staff member in staff list :(")
 			setMissingWallpaper()
 			return
@@ -127,19 +128,34 @@ def updateBackground():
 
 		# check if the image is already downloaded
 		# if it is, then we don't need to download it again
-		if os.path.isfile(f"{tempFolder}images/{image}.avif"):
-			print(f"Image {image} already downloaded")
+
+		# where we will store images
+		imagePath = f"{tempFolder}images/{imageName}"
+
+		if not os.path.exists(imagePath):
+			os.makedirs(imagePath)
+
+		if os.path.isfile(f"{imagePath}/{imageName}.avif"):
+			print(f"Image {imageName} already downloaded")
 		else:
 			# download the image
 			print("Downloading image")
 			imageResp = contentReq(imageURL)
-			with open(f"{tempFolder}images/{image}.avif", "wb") as f:
+			with open(f"{imagePath}/{imageName}.avif", "wb") as f:
 				f.write(imageResp.content)
 				f.close()
+
+		# magic from https://stackoverflow.com/a/3207973
+		# gets the list of filenames in the folder
+		filenames = next(os.walk(imagePath), (None, None, []))[2]
+
+		# pick random filename
+		image = random.choice(filenames)
 	
 		# set the wallpaper
 		# full path of the image is needed
-		fullPath = os.path.abspath(f"{tempFolder}images/{image}.avif")
+		# imageName is also person name
+		fullPath = os.path.abspath(f"{tempFolder}images/{imageName}/{image}")
 
 		# "fix" is a bit of a stretch
 		fixedImagePath = fixImageAndGetPath(fullPath)
