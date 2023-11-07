@@ -180,11 +180,18 @@ def fetchAndSave():
 	print("Downloading timetable")
 	tt = textReq(config.ttURL)
 
-	with open(f"{tempFolder}tt.ics", "w") as f:
-		print("Saving timetable")
-		f.write(tt)
-		f.close()
-	
+	# arbi
+	if(len(tt) < 10):
+		print("Timetable body was empty. Sometimes it breaks, so maybe try again later?")
+		print(f"You can also visit the iCal file in your browser and save it to {tempFolder}tt.ics")
+		print("If you have already done that, you can ignore this message")
+		print(config.ttURL)
+	else:
+		with open(f"{tempFolder}tt.ics", "w") as f:
+			print("Saving timetable")
+			f.write(tt)
+			f.close()
+		
 	print("Downloading staff list")
 	staffResp = jsonReq(staffJson)
 
