@@ -148,6 +148,8 @@ def updateBackground():
 		# magic from https://stackoverflow.com/a/3207973
 		# gets the list of filenames in the folder
 		filenames = next(os.walk(imagePath), (None, None, []))[2]
+		# remove filenames that end with "-stretch.jpg" (thanks copilot)
+		filenames = [f for f in filenames if not f.endswith("-stretch.jpg")]
 
 		# pick random filename from the folder
 		image = random.choice(filenames)
@@ -272,10 +274,10 @@ def setMissingWallpaper():
 # (it stretches the image to the screen resolution, and then saves it as a jpg)
 # returns the path to the new jpg
 def fixImageAndGetPath(imgPath):
-	newPath = imgPath.replace(".avif", ".jpg")
-
+	newPath = f"{imgPath}-stretch.jpg"
+	
 	# if already exists, return it
-	if os.path.isfile(newPath):
+	if os.path.exists(newPath):
 		print(f"Image already fixed up, returning {newPath}")
 		return newPath
 
