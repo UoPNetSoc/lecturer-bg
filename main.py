@@ -359,4 +359,3 @@ if __name__ == "__main__":
 	checkConfig()
 	makeTempFolders()
 	main()
-#this is code that does things that code does not do things in the code where the code makes the image funny and also kinda relevent to the code?
