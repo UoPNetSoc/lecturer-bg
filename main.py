@@ -118,7 +118,8 @@ def updateBackground():
 			return
 
 		# find the staff member's image
-		imageName, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")	
+		imageName, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")
+		# "imageName" ends up as the staff member's name, which is used as the folder name	
 
 		if imageName == None:
 			print("Couldn't find staff member in staff list :(")
@@ -126,8 +127,6 @@ def updateBackground():
 			return
 		# else:
 
-		# check if the image is already downloaded
-		# if it is, then we don't need to download it again
 
 		# where we will store images
 		imagePath = f"{tempFolder}images/{imageName}"
@@ -135,10 +134,11 @@ def updateBackground():
 		if not os.path.exists(imagePath):
 			os.makedirs(imagePath)
 
+		# check if the image from the staff board already exists
 		if os.path.isfile(f"{imagePath}/{imageName}.avif"):
 			print(f"Image {imageName} already downloaded")
 		else:
-			# download the image
+			# if it doesn't, we download it
 			print("Downloading image")
 			imageResp = contentReq(imageURL)
 			with open(f"{imagePath}/{imageName}.avif", "wb") as f:
@@ -149,12 +149,11 @@ def updateBackground():
 		# gets the list of filenames in the folder
 		filenames = next(os.walk(imagePath), (None, None, []))[2]
 
-		# pick random filename
+		# pick random filename from the folder
 		image = random.choice(filenames)
 	
 		# set the wallpaper
 		# full path of the image is needed
-		# imageName is also person name
 		fullPath = os.path.abspath(f"{tempFolder}images/{imageName}/{image}")
 
 		# "fix" is a bit of a stretch
