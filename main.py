@@ -70,6 +70,12 @@ def updateBackground():
 	except FileNotFoundError:
 		fetchAndSave()
 
+	try:
+		with open(f"{tempFolder}tt.ics") as f:
+			f.close()
+	except FileNotFoundError:
+		return print("Missing timetable...")
+
 	# open the files and parse them
 	with open(f"{tempFolder}tt.ics") as f:
 		cal = icalendar.Calendar.from_ical(f.read())
