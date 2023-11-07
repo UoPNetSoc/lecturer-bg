@@ -25,7 +25,7 @@ import config # not a very good way to do it, but it works
 staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
-rinatTime = True # set to true to test the wallpaper - it should always set the wallpaper to rinat
+rinatTime = False # set to true to test the wallpaper - it should always set the wallpaper to rinat
 
 def main():
 	# get arguments
@@ -174,7 +174,7 @@ def updateBackground():
 
 # this updates the local copy of the timetable/staff list
 def fetchAndSave():
-	#download the timetable and save it
+	# download the timetable and save it
 	
 	# TODO: check if the local copies is different
 	# and dont redownload if it's the same
@@ -275,7 +275,7 @@ def setMissingWallpaper():
 # returns the path to the new jpg
 def fixImageAndGetPath(imgPath):
 	newPath = f"{imgPath}-stretch.jpg"
-	
+
 	# if already exists, return it
 	if os.path.exists(newPath):
 		print(f"Image already fixed up, returning {newPath}")
