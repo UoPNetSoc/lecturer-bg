@@ -9,6 +9,8 @@ Everything should be treated as WIP, and we're not responsible if this does anyt
 
 The photographs of lecturers are systematically organized into dedicated folders within the temporary directory. Should you desire to include your own images of these individuals, you can you can place them in the appropriate folder (`tmp/images/LECTURER NAME/`). They will be randomly selected when the script is run.
 
+brainchild of jack. written under duress by tom.
+
 # Installation
 ## Requirements
 ```
