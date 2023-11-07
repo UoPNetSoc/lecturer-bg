@@ -2,6 +2,25 @@
 #  we didnt follow any good practices (like at all) and we dont want you to see it
 # Lecturer Wallpaper
 # https://github.com/UoPNetSoc/lecturer-bg
+# Made by Jack and Tom (mainly Jack(thats a lie its mainly tom)). i dont know what to put here so im just gonna put a bunch of random stuff here.
+# i like trains
+# i like planes
+# i like cars
+# i like boats
+# i like bikes
+# i like buses
+# i like trucks
+# i like vans
+# i like lorries
+# i like motorcycles
+# i like scooters
+# i like tractors
+# i like helicopters
+# i like rockets
+# i like spaceships
+# i like submarines
+# i like hot air balloons
+# i hate my life
 
 from time import sleep # for sleeping
 from datetime import datetime # for checking the time
