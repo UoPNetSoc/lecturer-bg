@@ -42,8 +42,11 @@ tempFolder = f"{currentFolder}\\tmp\\"
 # sorry tom
 # sorry tom
 # this code really is a mess
+
+#for testing purposes, set a fixed time made to work with the devs timetabes(jack+tom - may be simiar to yours no way to know)
 rinatTime = False
 nadimTime = False
+richTime = False
 
 def main():
 	# get arguments
@@ -112,11 +115,15 @@ def updateBackground():
 
 	# for testing purposes, set a fixed time
 	if rinatTime == True:
-		now = datetime(2023, 10, 16, 17, 0, 0)
+		now = datetime(2023, 10, 16, 17, 15, 25)
 
 	# for testing purposes, set a fixed time
 	if nadimTime == True:
 		now = datetime(2023, 11, 7, 14, 15, 25)
+
+	# for testing purposes, set a fixed time
+	if richTime == True:
+		now = datetime(2023, 11, 8, 10, 15, 25)
 	
 	# convert the time to the local timezone
 	now = now.astimezone()
