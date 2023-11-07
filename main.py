@@ -1,7 +1,12 @@
-# if any lecturers see this please just be supprised that it works and dont look at the code please its a mess.
-#  we didnt follow any good practices (like at all) and we dont want you to see it
-# Lecturer Wallpaper
+# Lecturer Background
 # https://github.com/UoPNetSoc/lecturer-bg
+# By TomR.me, JackConnolly.net (NetSoc.group), 2023
+
+# To any lecturers who may be looking at this code: sorry. You should probably stop reading now.
+# This is the epitome of bodge. Made in a few hours and then perpetually added to over time.
+# We care more about our code quality in our uni work, don't worry!
+# Somehow everything mostly works though, which is honestly a miracle.
+# - Tom
 
 from time import sleep # for sleeping
 from datetime import datetime # for checking the time
