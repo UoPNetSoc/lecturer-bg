@@ -26,8 +26,9 @@ staffJson = "https://soc.port.ac.uk/staff/soc.json"
 currentFolder = os.path.abspath(os.path.dirname(__file__))
 tempFolder = f"{currentFolder}\\tmp\\"
 
-# set these to true to test the wallpaper, will always set the wallpaper to the respective person
+# set these to true to test the wallpaper, SHOULD always set the wallpaper to the respective person
 # will only work for those on the networking course
+# for testing and debugging purposes only, make sure to set to false before committing
 rinatTime = False
 nadimTime = False
 
