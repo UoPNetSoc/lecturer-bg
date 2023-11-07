@@ -177,13 +177,13 @@ def fetchAndSave():
 	
 	# TODO: check if the local copies is different
 	# and dont redownload if it's the same
-	# print("Downloading timetable")
-	# tt = textReq(config.ttURL)
+	print("Downloading timetable")
+	tt = textReq(config.ttURL)
 
-	# with open(f"{tempFolder}tt.ics", "w") as f:
-	# 	print("Saving timetable")
-	# 	f.write(tt)
-	# 	f.close()
+	with open(f"{tempFolder}tt.ics", "w") as f:
+		print("Saving timetable")
+		f.write(tt)
+		f.close()
 	
 	print("Downloading staff list")
 	staffResp = jsonReq(staffJson)
