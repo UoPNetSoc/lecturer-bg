@@ -90,6 +90,13 @@ def checkConfig():
 # checks whether there is a current event
 # if there is, the wallpaper is updated accordingly
 def updateBackground():
+	"""
+	This function updates the desktop background based on the current event in the UOP timetable.
+	It checks if the necessary files exist, and if not, it downloads them.
+	It then parses the timetable file and finds the current event.
+	If the current event has a lecturer associated with it, it finds their image and sets it as the desktop background.
+	If there is no current event or the lecturer cannot be found, it sets the default wallpaper.
+	"""
 	# check if the files exists
 	# if it doesn't, then download them
 	try:
@@ -101,30 +108,38 @@ def updateBackground():
 	except FileNotFoundError:
 		fetchAndSave()
 
+	# check if the timetable file exists
 	try:
 		with open(f"{tempFolder}tt.ics") as f:
 			f.close()
 	except FileNotFoundError:
 		return print("Missing timetable...")
 
-	# open the files and parse them
+	# open the timetable file and parse it
 	with open(f"{tempFolder}tt.ics") as f:
 		cal = icalendar.Calendar.from_ical(f.read())
 		f.close()
 
+	# get the current time
 	now = datetime.now()
 
+	# for testing purposes, set a fixed time
 	if rinatTime == True:
-		now = datetime(2023, 10, 16, 17, 0, 0) # fixed time for testing
+		now = datetime(2023, 10, 16, 17, 0, 0)
 
+	# for testing purposes, set a fixed time
 	if nadimTime == True:
 		now = datetime(2023, 11, 7, 14, 15, 25)
 	
+	# convert the time to the local timezone
 	now = now.astimezone()
 
+	# get the events happening at the current time
 	nowEvents = recurring_ical_events.of(cal).at(now)
 
+	# loop through the events happening at the current time
 	for event in nowEvents:
+		# get the event details
 		title = event.get('summary')
 		startTime = event.get('dtstart').dt
 		endTime = event.get('dtend').dt
@@ -136,13 +151,13 @@ def updateBackground():
 		# TODO: NEW UOP TIMETABLING SYSTEM
 		# SEE ISSUE #9
 
+		# get the last line of the event notes
 		lines = notes.split("\n")
-		
 		lastLine = lines[-2] # for some reason the last line is always blank so get second last
 
 		print(f"Last line: {lastLine}")
 
-		# if contains a comma then we will assume it's a lecturer
+		# if the last line contains a comma, assume it's a lecturer
 		# example: Bakhshov, Nadim, Boakes, Rich
 		# we will go based on the first lecturer in the list, so 0 and 1 when split(", ")
 		# TODO: we could make a fun grid of multiple lecturers?
@@ -159,14 +174,12 @@ def updateBackground():
 
 		# find the staff member's image
 		imageName, imageURL = findStaffMemberImageURL(f"{firstName} {lastName}")
-		# "imageName" ends up as the staff member's name, which is used as the folder name	
+		# "imageName" ends up as the staff member's name, which is used as the folder name    
 
 		if imageName == None:
 			print("Couldn't find staff member in staff list :(")
 			setMissingWallpaper()
 			return
-		# else:
-
 
 		# where we will store images
 		imagePath = f"{tempFolder}images/{imageName}"
@@ -388,4 +401,4 @@ def get_legacy_session():
 if __name__ == "__main__":
 	checkConfig()
 	makeTempFolders()
-	main()
+	main(
