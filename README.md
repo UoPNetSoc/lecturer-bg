@@ -3,9 +3,9 @@
 
 Set your computer wallpaper to your current lecturer, according to your timetable (only works for the UoP School of Computing).
 
-Please don't look at the code... it's baaaaad. Sorry. Everything is a bodge. This was originally hacked together between lectures (def not during), and has been patched and added to ever since.
+Please don't look at the code... it's baaaaad. Sorry. Everything is a bodge. This was originally hacked together between lectures (def not during), and has been patched and added to ever since. Sorry, again, Nadim, we love you.
 
-Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer. Only works on Windows, but there are probably easy ways to port it to macOS/Linux DEs.
+Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer. Only works on Windows, but there are probably easy ways to port it to macOS/Linux DEs. Please don't beg us for support, if you're nerdy enough to use this, you can probably try and fix any issues.
 
 The photographs of lecturers are systematically organized into dedicated folders within the temporary directory. Should you desire to include your own images of these individuals, you can you can place them in the appropriate folder (`tmp/images/LECTURER NAME/`). They will be randomly selected when the script is run.
 
