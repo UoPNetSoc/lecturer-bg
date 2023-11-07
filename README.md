@@ -63,7 +63,7 @@ See GitHub Issues for list of things to do.
 
 *"That's great! You could sell that back to the School!"* - Nadim
 
-*"This is a flagrant abuse of copyright law, a misuse of university intellectual property and is almost certainly covered by the uni's computer misuse policy, so you should probably make it a private repo - this doesn't mean it's not staggeringly funny, but cover your ass"* - Rich
+*"This is a flagrant abuse of copyright law, a misuse of university intellectual property and is almost certainly covered by the uni's computer misuse policy, so you should **probably** make it a private repo - this doesn't mean it's not staggeringly funny, but cover your ass"* - Rich (if anyone has a problem with this, we will be nice and stop distributing it xoxo - email: [compnet@upsu.net](mailto:compnet@upsu.net))
 
 # Contributers
 - This is the brainchild of the almighty Jack, ([@jdc0101](https://github.com/jdc0101)) (taking the role of Steve Jobs) (he did help tho with some of it(its a team effort))
