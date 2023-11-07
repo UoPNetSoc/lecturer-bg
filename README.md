@@ -63,6 +63,8 @@ See GitHub Issues for list of things to do.
 
 *"That's great! You could sell that back to the School!"* - Nadim
 
+*"This is a flagrant abuse of copyright law, a misuse of university intellectual property and is almost certainly covered by the uni's computer misuse policy, so you should probably make it a private repo - this doesn't mean it's not staggeringly funny, but cover your ass" - Rich
+
 # Contributers
 - This is the brainchild of the almighty Jack, ([@jdc0101](https://github.com/jdc0101)) (taking the role of Steve Jobs) (he did help tho with some of it(its a team effort))
 - Tom, [@itsmeimtom](https://github.com/itsmeimtom), actually did all the work and wrote the code (taking the role of Steve Wozniak)
