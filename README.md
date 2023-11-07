@@ -9,8 +9,6 @@ Everything should be treated as WIP, and we're not responsible if this does anyt
 
 The photographs of lecturers are systematically organized into dedicated folders within the temporary directory. Should you desire to include your own images of these individuals, you can you can place them in the appropriate folder (`tmp/images/LECTURER NAME/`). They will be randomly selected when the script is run.
 
-brainchild of jack. written under duress by tom.
-
 # Installation
 ## Requirements
 ```
@@ -64,3 +62,8 @@ See GitHub Issues for list of things to do.
 *"-laughs hysterically and slaps Jack on the back- Would you like more photos? I can send more photos, send me an email"* - Farzad
 
 *"That's great! You could sell that back to the School!"* - Nadim
+
+# Contributers
+- This is the brainchild of the almighty ([@jdc0101](https://github.com/jdc0101)) (Steve Jobs)
+- [@itsmeimtom](https://github.com/itsmeimtom) is the only one who has actually written useful code (Steve Wozniak)
+- Special thanks to GitHub Copilot, who has these words to say here: *"I'm not sure what to say, but I'm sure you'll be able to find a way to make it work."*
