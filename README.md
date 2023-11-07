@@ -64,6 +64,6 @@ See GitHub Issues for list of things to do.
 *"That's great! You could sell that back to the School!"* - Nadim
 
 # Contributers
-- This is the brainchild of the almighty Jack, ([@jdc0101](https://github.com/jdc0101)) (taking the role of Steve Jobs)
+- This is the brainchild of the almighty Jack, ([@jdc0101](https://github.com/jdc0101)) (taking the role of Steve Jobs) (he did help tho with some of it(its a team effort))
 - Tom, [@itsmeimtom](https://github.com/itsmeimtom), actually did all the work and wrote the code (taking the role of Steve Wozniak)
 - Special thanks to GitHub Copilot, who has these words to say here: *"I'm not sure what to say, but I'm sure you'll be able to find a way to make it work."*
