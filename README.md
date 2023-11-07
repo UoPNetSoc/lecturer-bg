@@ -7,6 +7,8 @@ Please don't look at the code... it's baaaaad. Sorry. Everything is a bodge. Thi
 
 Everything should be treated as WIP, and we're not responsible if this does anything bad to your poor computer. Only works on Windows, but there are probably easy ways to port it to macOS/Linux DEs.
 
+The photographs of lecturers are systematically organized into dedicated folders within the temporary directory. Should you desire to include your own images of these individuals, you may append any JPG image of them with a resolution matching your screen. The system will subsequently select photographs randomly from the lecturer's designated folder.
+
 # Installation
 ## Requirements
 ```
