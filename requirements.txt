@@ -1,5 +1,5 @@
 icalendar==5.0.10
-Pillow==10.1.0
+Pillow==10.2.0
 pillow_avif_plugin==1.4.1
 pytz==2023.3.post1
 recurring_ical_events==2.1.0
