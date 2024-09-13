@@ -1,4 +1,10 @@
 # Lecturer Background
+
+> **⚠️ This no longer works :(**
+> This project was desined to use an older version of the University's timetabling system, and an older version of the School of Computing's staff board website. It is unlikely that we will update the project to support the changes, however you are welcome to create forks.
+> Here is a [▶️ video](https://youtu.be/oufEE-sbeVY) showing LecturerBG in its finest hour, reminding us that we were late for a lecture from Farzad :(
+> So long, and thanks for all the 'why you stretch my face.' 🫡
+
 ![A photograph of a laptop, with the desktop wallpaper set to a stretched photograph of a Russian tutor in a white shirt](https://github.com/UoPNetSoc/lecturer-bg/assets/14424577/5967b58f-aaab-4ef1-ab80-12dfd76a208e)
 
 Set your computer wallpaper to your current lecturer, according to your timetable (only works for the UoP School of Computing).
